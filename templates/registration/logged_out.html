@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Logged Out | CineVault{% endblock %}
+
+{% block content %}
+<div class="logged-out-container animate-in">
+    <div class="check-icon">👋</div>
+    <h2>You've been logged out</h2>
+    <p>Thanks for visiting CineVault. Your session has ended safely. See you next time!</p>
+    <a href="{% url 'login' %}" class="btn-gradient">🔑 Login Again</a>
+    <div style="margin-top: 1rem;">
+        <a href="{% url 'movie_list' %}" class="btn-outline-custom">🏠 Go Home</a>
+    </div>
+</div>
+{% endblock %}

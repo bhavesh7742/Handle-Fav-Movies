@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}{% if form.instance.pk %}Edit Movie{% else %}Add Movie{% endif %} | CineVault{% endblock %}
+
+{% block content %}
+<div class="page-header animate-in">
+    <h1>{% if form.instance.pk %}✏️ Edit Movie{% else %}✨ Add New Movie{% endif %}</h1>
+    <p class="subtitle">{% if form.instance.pk %}Update the details of your movie{% else %}Add a new film to your collection{% endif %}</p>
+</div>
+
+<div class="form-container animate-in">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <ul class="errorlist">
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if field.help_text %}
+            <span class="helptext">{{ field.help_text|safe }}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn-gradient">
+                {% if form.instance.pk %}💾 Update Movie{% else %}🎬 Create Movie{% endif %}
+            </button>
+            <a href="{% url 'movie_list' %}" class="btn-outline-custom">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

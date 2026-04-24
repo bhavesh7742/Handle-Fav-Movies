@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete Movie | CineVault{% endblock %}
+
+{% block content %}
+<div class="delete-container animate-in">
+    <div class="form-container">
+        <div class="delete-icon">⚠️</div>
+        <h2>Delete Movie</h2>
+        <p>Are you sure you want to delete <span class="movie-title-highlight">"{{ movie.title }}"</span>? This action cannot be undone.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-actions" style="justify-content: center;">
+                <button type="submit" class="btn-danger-fill">🗑️ Yes, Delete</button>
+                <a href="{% url 'movie_list' %}" class="btn-outline-custom">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}My Movies | CineVault{% endblock %}
+
+{% block content %}
+<div class="page-header animate-in">
+    <h1>🎬 My Movie Collection</h1>
+    {% if user.is_authenticated %}
+    <p class="subtitle">Your personal curated list of favorite films</p>
+    {% else %}
+    <p class="subtitle">Login to start building your movie collection</p>
+    {% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<div class="text-center mb-4 animate-in">
+    <a class="btn-gradient" href="{% url 'movie_create' %}">
+        ✨ Add New Movie
+    </a>
+</div>
+{% endif %}
+
+<div class="movie-grid">
+    {% for movie in movies %}
+    <div class="movie-card">
+        {% if movie.image %}
+        <div class="card-img-wrapper">
+            <img src="{{ movie.image.url }}" alt="{{ movie.title }}">
+            <span class="year-badge">{{ movie.year }}</span>
+        </div>
+        {% else %}
+        <div class="no-image">
+            🎥
+            <span class="year-badge" style="position:absolute;top:12px;right:12px;">{{ movie.year }}</span>
+        </div>
+        {% endif %}
+        <div class="card-content">
+            <h3>{{ movie.title }}</h3>
+            <p class="description">{{ movie.description }}</p>
+        </div>
+        <div class="card-actions">
+            <a href="{% url 'movie_edit' movie.id %}" class="btn-edit-custom">✏️ Edit</a>
+            <a href="{% url 'movie_delete' movie.id %}" class="btn-danger-custom">🗑️ Delete</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        {% if user.is_authenticated %}
+        <h3>No movies yet</h3>
+        <p>Start building your collection by adding your first favorite movie!</p>
+        <a href="{% url 'movie_create' %}" class="btn-gradient">✨ Add Your First Movie</a>
+        {% else %}
+        <h3>Welcome to CineVault</h3>
+        <p>Login or register to start tracking your favorite movies!</p>
+        <a href="{% url 'login' %}" class="btn-gradient">🔑 Login to Get Started</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
