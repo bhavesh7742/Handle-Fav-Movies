@@ -1,7 +1,5 @@
 # 🎬 HandleFavMovies
 
-A sleek, modern Django web application to manage your favorite movies. Keep track of what you've watched, add descriptions, and upload posters in a beautiful, responsive interface.
-
 ## ✨ Features
 
 - **User Authentication**: Secure Register, Login, and Logout functionality.
